@@ -1,5 +1,4 @@
 package company;
-import company.Car;
 public class Main {
 
     public static void main(String[] args) {
@@ -15,6 +14,11 @@ public class Main {
     }
     Human me =new Human("Sebastian","Strongowski","+48123456789");
     me.car = new Car("vw", "passat", 90.5, "silver");
+
+
+    me.changeSalary(-100.0);
+    me.changeSalary(2999.99);
+    me.getSalary();
     }
     
 }
