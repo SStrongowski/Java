@@ -1,4 +1,5 @@
 package company;
+import company.Car;
 public class Main {
 
     public static void main(String[] args) {
@@ -9,7 +10,11 @@ public class Main {
 
     Animal cat = new Animal("cat", "Bambik");
     cat.feed();
-    for (int i=0; i<6;i++)
-    cat.takeForWalk();
+    for (int i=0; i<6;i++){
+        cat.takeForWalk();
     }
+    Human me =new Human("Sebastian","Strongowski","+48123456789");
+    me.car = new Car("vw", "passat", 90.5, "silver");
+    }
+    
 }
