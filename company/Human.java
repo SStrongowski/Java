@@ -6,7 +6,7 @@ public class Human {
     private Double salary;
     public String phone;
     public Animal pet;
-    public Car car;
+    private Car car;
     public Human (String firstName , String lastName, String phone){
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,5 +26,18 @@ public class Human {
         System.out.println("Zus and Us already know about your salary change");
         this.salary=sum;
         System.out.println("Salary changed successful") ;
+    }
+    public Car getCar() {
+        return car;
+    }
+    public void canIBuyThisCar(Car car) {
+        if (this.salary > car.value) {
+            this.car = car;
+            System.out.println("You have enough money to buy " + car.producer + " " + car.model + " by cash");
+        } else if (this.salary > car.value / 12) {
+            this.car = car;
+            System.out.println("You bought " + car.producer + " " + car.model + " in installments!");
+        } else
+            System.out.println("Sorry " + this.firstName + " you are too poor for this car");
     }
 }
