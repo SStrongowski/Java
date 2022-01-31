@@ -1,12 +1,12 @@
 package company;
 
 public class Animal {
-    final String Species;
+    final String species;
     public String name;
     private Double weight;
 
     public Animal(String species, String name) {
-        Species = species;
+        this.species = species;
         this.name = name;
         if (species == "dog")
             this.weight = 8.0;
@@ -33,5 +33,8 @@ public class Animal {
             System.out.println(this.name+"Weight reduced to " + this.weight + " kg");
         }
 
+    }
+    public String toString(){
+        return species + " " + name + " " + weight;
     }
 }

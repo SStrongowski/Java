@@ -17,7 +17,7 @@ public class Main {
     me.changeSalary(-100.0);
     me.changeSalary(2999.99);
     me.getSalary();
-    Car passeratti = new Car("vw", "passat",90.0, "czarna strzała",1000.0);
+    Car passeratti = new Car("vw", "passat",90.0, "czarna strzala",1000.0);
     me.canIBuyThisCar(passeratti);
 
     me.changeSalary(331.0);
@@ -28,6 +28,13 @@ public class Main {
     
     me.changeSalary(1.0);
     me.canIBuyThisCar(passeratti);
+
+    Car anotherPassat = new Car("vw", "passat",90.0, "czarna strzala",1000.0);
+    System.out.println( passeratti==anotherPassat);
+    System.out.println( passeratti.equals(anotherPassat));
+    System.out.println(passeratti);
+    System.out.println(me);
+    System.out.println(dog);
     }
     
 }

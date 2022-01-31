@@ -12,4 +12,7 @@ public class Phone {
         this.screenSize = screenSize;
         this.operatingSystem = operatingSystem;
     }
+    public String toString() {
+        return producer + " " + model + " " + operatingSystem + " " + screenSize ;
+    }
 }

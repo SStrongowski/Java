@@ -40,4 +40,7 @@ public class Human {
         } else
             System.out.println("Sorry " + this.firstName + " you are too poor for this car");
     }
+    public String toString() {
+        return firstName + " " + lastName  + pet  + " " + salary + " " + phone + " " + " " + car;
+    }
 }
