@@ -1,5 +1,7 @@
 package company;
 import java.time.LocalDateTime;
+
+import company.devices.Car;
 public class Human {
     public String firstName;
     public String lastName;
