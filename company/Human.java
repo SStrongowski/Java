@@ -43,6 +43,6 @@ public class Human {
             System.out.println("Sorry " + this.firstName + " you are too poor for this car");
     }
     public String toString() {
-        return firstName + " " + lastName  + pet  + " " + salary + " " + phone + " " + " " + car;
+        return this.firstName + " " + this.lastName  + this.pet  + " " + this.salary + " " + this.phone + " " + " " + this.car;
     }
 }

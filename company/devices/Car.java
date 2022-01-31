@@ -1,15 +1,13 @@
 package company.devices;
 
-public class Car {
-    public String producer;
-    public String model;
+public class Car  extends Device{
     public Double enginePower;
     public String color;
     public Double value;
-
-    public Car(String producer, String model, Double enginePower, String color, Double value) {
-        this.producer = producer;
-        this.model = model;
+    public Car(String producer, String model,Integer yearOfProduction,Double enginePower, String color, Double value) {
+        this.producer=producer;
+        this.yearOfProduction=yearOfProduction;
+        this.model=model;
         this.color = color;
         this.enginePower = enginePower;
         this.value=value;
@@ -23,13 +21,17 @@ public class Car {
             return false;
         }
         Car xCar= (Car) x;
-        return this.producer == xCar.producer && 
-        this.model == xCar.model &&
+        return
         this.enginePower.compareTo(xCar.enginePower) == 0 &&
         this.color == xCar.color &&
         this.value.compareTo(xCar.value) == 0;
     }
-    public String toString() {
-        return producer + " " + model + " " + + enginePower + " " + color+" "+value;
+    public void turnOn() {
+        this.mode = "on";
+        System.out.println("wrum wrum");
     }
+    public String asString() {
+        return this.enginePower + " " + this.color+" "+this.value;
+    }
+    
 }
