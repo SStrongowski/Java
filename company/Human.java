@@ -1,18 +1,45 @@
 package company;
 import java.time.LocalDateTime;
-
+import company.devices.Phone;
 import company.devices.Car;
 public class Human {
     public String firstName;
     public String lastName;
     private Double salary;
-    public String phone;
-    public Animal pet;
+    private Phone phone;
+    private Animal pet;
     private Car car;
-    public Human (String firstName , String lastName, String phone){
+    private Double cash;
+    public Human (String firstName , String lastName, Double cash){
         this.firstName = firstName;
         this.lastName = lastName;
+        this.cash = cash;
+    }
+    public Human (String firstName , String lastName,  Double cash, Car car){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.cash = cash;
+        this.car=car;
+    }
+    public Human (String firstName , String lastName,  Double cash, Phone phone){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.cash = cash;
         this.phone = phone;
+    }
+    public Human (String firstName , String lastName,  Double cash, Animal pet){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.cash = cash;
+        this.pet=pet;
+    }
+    public Human (String firstName , String lastName,  Double cash, Car car, Phone phone, Animal pet){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.cash = cash;
+        this.car=car;
+        this.phone=phone;
+        this.pet=pet;
     }
     public Double getSalary() {
         System.out.println("Salary amount: " + this.salary+ ", checked at " + LocalDateTime.now().toString());
@@ -29,10 +56,33 @@ public class Human {
         this.salary=sum;
         System.out.println("Salary changed successful") ;
     }
-    public Car getCar() {
-        return car;
+    // getters
+    public Double getCash(){
+        return this.cash;
     }
-    public void canIBuyThisCar(Car car) {
+    public Phone getPhone() {
+        return this.phone;
+    }
+    public Car getCar() {
+        return this.car;
+    }
+    public Animal getPet() {
+        return this.pet;
+    }
+    // setters
+    public void setCash(Double cash) {
+        this.cash=cash;
+    }
+    public void setPhone(Phone phone) {
+        this.phone=phone;
+    }
+    public void setCar(Car car) {
+        this.car=car;
+    }
+    public void setPet(Animal animal) {
+        this.pet=animal;
+    }
+    public void BuyThisCar(Car car) {
         if (this.salary > car.value) {
             this.car = car;
             System.out.println("You have enough money to buy " + car.producer + " " + car.model + " by cash");
