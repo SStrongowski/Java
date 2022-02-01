@@ -1,6 +1,6 @@
 package company.devices;
-import company.Animal;
 import company.Human;
+import company.creatures.Animal;
 public class Phone  extends Device{
     final public Double screenSize;
     final public String operatingSystem;

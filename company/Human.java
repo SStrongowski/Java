@@ -1,6 +1,7 @@
 package company;
 import java.time.LocalDateTime;
 import company.devices.Phone;
+import company.creatures.Animal;
 import company.devices.Car;
 public class Human {
     public String firstName;

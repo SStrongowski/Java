@@ -1,19 +1,27 @@
-package company;
+package company.creatures;
 
-public class Animal implements saleable {
+import company.Human;
+import company.saleable;
+
+public abstract class Animal implements saleable,Feedable {
     final String species;
     public String name;
     private Double weight;
-
     public Animal(String species, String name) {
         this.species = species;
         this.name = name;
-        if (species == "dog")
+        if (species == "dog"){
             this.weight = 8.0;
-        else if (species =="cat")
+        }else if (species =="cat"){
             this.weight = 3.0;
-        else
+        }else{
             weight = 1.0; 
+        }
+    }
+    public Animal(String species, String name,Double weight) {
+        this.species = species;
+        this.name = name;
+        this.weight=weight;
     }
     public boolean equals(Object x) {
         if (this == x){
@@ -27,7 +35,8 @@ public class Animal implements saleable {
         this.name == xPet.name &&
         this.weight.compareTo(xPet.weight) == 0;
     }
-    void feed() {
+    @Override
+    public void feed() {
         if (this.weight <= 0)
             System.out.println(this.name+"RIP");
         else {
@@ -35,8 +44,17 @@ public class Animal implements saleable {
             System.out.println(this.name+ "Weight increased to " + this.weight + " kg");
         }
     }
+    @Override
+    public void feed(Double foodWeight) {
+        if (this.weight <= 0)
+            System.out.println(this.name+"RIP");
+        else {
+            weight += foodWeight;
+            System.out.println(this.name+ "Weight increased to " + this.weight + " kg");
+        }
+    }
 
-    void takeForWalk() {
+    public void takeForWalk() {
         if (this.weight <= 0)
             System.out.println(this.name+" is dead");
         else {
@@ -44,6 +62,10 @@ public class Animal implements saleable {
             System.out.println(this.name+"Weight reduced to " + this.weight + " kg");
         }
 
+    }
+    protected void kill() {
+        System.out.println("RIP");
+        this.weight = 0.0;
     }
     public String toString(){
         return this.species + " " + this.name + " " + this.weight;
