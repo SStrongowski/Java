@@ -7,10 +7,14 @@ public abstract class Device implements saleable {
     protected String mode;
     public int yearOfProduction;
     public String model;
+    public Device(String producer, String model,Integer yearOfProduction){
+        this.producer=producer;
+        this.model=model;
+        this.yearOfProduction=yearOfProduction;
+    }
     public abstract void turnOn();
-    public abstract String asString();
     @Override
     public String toString() {
-        return this.producer+" "+this.mode+" "+this.yearOfProduction+" "+ this.model +" "+ asString();
+        return this.producer+" "+this.mode+" "+this.yearOfProduction+" "+ this.model;
     }
 }

@@ -1,23 +1,17 @@
 package company.devices;
-
-import company.saleable;
 import company.Human;
-public class Car  extends Device{
+public abstract class Car  extends Device{
     public Double enginePower;
     public String color;
     public Double value;
     public Car(String producer, String model,Integer yearOfProduction,Double enginePower, String color, Double value) {
-        this.producer=producer;
-        this.yearOfProduction=yearOfProduction;
-        this.model=model;
+        super(producer, model, yearOfProduction);
         this.color = color;
         this.enginePower = enginePower;
         this.value=value;
     }    
     public Car(String producer, String model,Integer yearOfProduction,Double enginePower, String color) {
-        this.producer=producer;
-        this.yearOfProduction=yearOfProduction;
-        this.model=model;
+        super(producer, model, yearOfProduction);
         this.color = color;
         this.enginePower = enginePower;
     }
@@ -25,7 +19,6 @@ public class Car  extends Device{
         if (this == x){
             return true;
         }  
-        
         if (x == null || this.getClass() != x.getClass()){
             return false;
         }
@@ -41,8 +34,8 @@ public class Car  extends Device{
         this.mode = "on";
         System.out.println("wrum wrum");
     }
-    public String asString() {
-        return this.enginePower + " " + this.color+" "+this.value;
+    public String toString() {
+        return this.enginePower+" "+this.color+" "+this.value;
     }
     public void sell(Human seller, Human buyer, Double price){
         Double buyerCash = buyer.getCash();
@@ -74,4 +67,5 @@ public class Car  extends Device{
         System.out.println("After transaction: Seller balance "+ seller.getCash()+", seller Car "+seller.getCar());
         System.out.println("After transaction: Buyer balance "+buyer.getCash()+", buyer Car "+buyer.getCar());
     }
+    public abstract void refuel();
 }

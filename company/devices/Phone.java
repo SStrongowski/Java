@@ -1,16 +1,20 @@
 package company.devices;
 import company.Human;
-import company.creatures.Animal;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
 public class Phone  extends Device{
     final public Double screenSize;
     final public String operatingSystem;
 
     public Phone(String producer,  String model ,Integer yearOfProduction,Double screenSize, String operatingSystem) {
-        this.producer=producer;
-        this.yearOfProduction=yearOfProduction;
-        this.model=model;
+        super(producer, model, yearOfProduction);
         this.screenSize = screenSize;
         this.operatingSystem = operatingSystem;
+    }
+    public String toString() {
+        return this.screenSize + " " + this.operatingSystem;
     }
     public boolean equals(Object x) {
         if (this == x){
@@ -25,9 +29,6 @@ public class Phone  extends Device{
         this.model == xPhone.model &&
         this.screenSize.compareTo(xPhone.screenSize) == 0 &&
         this.operatingSystem == xPhone.operatingSystem;
-    }
-    public String asString() {
-        return this.operatingSystem + " " + this.screenSize ;
     }
     @Override
     public void turnOn() {
@@ -63,5 +64,30 @@ public class Phone  extends Device{
         System.out.println("transaction complete");
         System.out.println("After transaction: Seller balance "+ seller.getCash()+", seller Phone "+seller.getPhone());
         System.out.println("After transaction: Buyer balance "+buyer.getCash()+", buyer Phone "+buyer.getPhone());
+    }
+    private static String DEFAULT_VERSION="latest-stable";
+    private static String DEFAULT_SERVER_ADDRESS="google.com";
+    private static String DEFAULT_PROTOCOL="https";
+    public void installApp(String  appName){
+        installApp(appName,DEFAULT_VERSION,DEFAULT_SERVER_ADDRESS);
+    }
+    public void installApp(String  appName, String version ){
+        installApp(appName,version,DEFAULT_SERVER_ADDRESS);
+    }
+    public void installApp(String  appName, String version, String serverAddress ){
+        try{
+            URL url = new URL(DEFAULT_PROTOCOL, serverAddress, "/"+appName+"/"+version);
+            installApp(url);
+        }catch(MalformedURLException e){
+            System.out.println(e);
+        }
+    }
+    public void installApp(List<String> appNames){
+        for (String appName :appNames){
+            installApp(appName);
+        }
+    }
+    public void installApp(URL url ){
+        System.out.println("App installed from "+url);
     }
 }
