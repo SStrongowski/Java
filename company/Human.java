@@ -48,6 +48,18 @@ public class Human {
         this.pet=pet;
         this.garage=new Car[garageSize];
     }
+    public boolean equals(Object x) {
+        if (this == x){
+            return true;
+        }  
+        if (x == null || this.getClass() != x.getClass()){
+            return false;
+        }
+        Human xHuman= (Human) x;
+        return  this.firstName == xHuman.firstName &&
+        this.lastName == xHuman.lastName &&
+        this.garage.length == xHuman.garage.length;
+    }
     public Double getSalary() {
         System.out.println("Salary amount: " + this.salary+ ", checked at " + LocalDateTime.now().toString());
         return salary;
@@ -87,8 +99,10 @@ public class Human {
     public void setCar(Car car) {
         for (Integer i=0;i<garage.length;i++){
             if (this.garage[i] == null){
-                System.out.println(i);
                 this.garage[i]=car;
+                if (car.getTransactions() == null || car.howManyTransactions()==0) {
+                    car.addTransaction(null, this, car.value);
+                }
                 return;
             }
         }

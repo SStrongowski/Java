@@ -1,10 +1,17 @@
 package company.devices;
 import company.Human;
+import company.Transaction;
+
+import java.util.List;
 import java.lang.Object;
+import java.util.Collections;
+import java.util.ArrayList;
 public abstract class Car  extends Device implements Comparable<Car> {
     public Double enginePower;
     public String color;
-    private static Double DEFAULT_CAR_VALUE=1000.0;
+    public static Double DEFAULT_CAR_VALUE=1000.0;
+    private List<Transaction> Transactions = new ArrayList<>();
+
     public Car(String producer, String model,Integer yearOfProduction,Double enginePower, String color, Double value) {
         super(producer, model, yearOfProduction,value);
         this.color = color;
@@ -48,6 +55,9 @@ public abstract class Car  extends Device implements Comparable<Car> {
         if(!seller.hasACar(this)){
             throw new Exception("Seller don't have this car");
         }
+        if(!this.isOwner(seller)){
+            throw new Exception("Seller don't own this car");
+        }
         if(!buyer.hasAFreePlace()){
             throw new Exception("Buyer have not enough place in garage");
         }
@@ -58,6 +68,7 @@ public abstract class Car  extends Device implements Comparable<Car> {
         buyer.setCar(this);
         buyer.setCash(buyerCash-value);
         seller.setCash(sellerCash+value);
+        this.addTransaction(seller, buyer, price);
         System.out.println("transaction complete");
         System.out.println("After transaction: Seller balance "+ seller.getCash());
         System.out.println("After transaction: Buyer balance "+buyer.getCash());
@@ -65,6 +76,39 @@ public abstract class Car  extends Device implements Comparable<Car> {
     @Override
     public int compareTo(Car car) {
         return this.yearOfProduction -car.yearOfProduction;
+    }
+    public List<Transaction> getTransactions(){
+        return this.Transactions;
+    }
+    public void addTransaction(Human seller,Human buyer, Double price){
+        this.Transactions.add(new Transaction(seller, buyer, price));
+    }
+    public void sortTransactionsByDate(){
+        Collections.sort(this.Transactions,Collections.reverseOrder());
+    }
+
+    public boolean isOwner(Human owner){
+        sortTransactionsByDate();
+        return this.Transactions.get(0).getBuyer().equals(owner);
+    }
+    public boolean wasOwner(Human owner){
+        for(Transaction tx : this.Transactions){
+            if (owner.equals(tx.getSeller()) || owner.equals(tx.getBuyer())){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean transactionTookPlace(Human seller, Human buyer){
+        for(Transaction tx : this.Transactions){
+            if (seller.equals(tx.getSeller()) && buyer.equals(tx.getBuyer())){
+                return true;
+            }
+        }
+        return false;
+    }
+    public Integer howManyTransactions(){
+        return Transactions.size();
     }
     public abstract void refuel();
 }
