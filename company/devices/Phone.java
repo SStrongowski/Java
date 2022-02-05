@@ -7,9 +7,9 @@ import java.util.List;
 public class Phone  extends Device{
     final public Double screenSize;
     final public String operatingSystem;
-
+    private static Double DEFAULT_PHONE_VALUE=300.0;
     public Phone(String producer,  String model ,Integer yearOfProduction,Double screenSize, String operatingSystem) {
-        super(producer, model, yearOfProduction);
+        super(producer, model, yearOfProduction,DEFAULT_PHONE_VALUE);
         this.screenSize = screenSize;
         this.operatingSystem = operatingSystem;
     }

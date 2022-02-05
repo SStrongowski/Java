@@ -3,44 +3,50 @@ import java.time.LocalDateTime;
 import company.devices.Phone;
 import company.creatures.Animal;
 import company.devices.Car;
+
+import java.util.Arrays;
 public class Human {
     public String firstName;
     public String lastName;
     private Double salary;
     private Phone phone;
     private Animal pet;
-    private Car car;
+    private Car[] garage;
     private Double cash;
+    private static Integer DEFAULT_GARAGE_SIZE=2;
     public Human (String firstName , String lastName, Double cash){
         this.firstName = firstName;
         this.lastName = lastName;
         this.cash = cash;
+        this.garage=new Car[DEFAULT_GARAGE_SIZE];
     }
-    public Human (String firstName , String lastName,  Double cash, Car car){
+    public Human (String firstName , String lastName,  Double cash, Integer garageSize){
         this.firstName = firstName;
         this.lastName = lastName;
         this.cash = cash;
-        this.car=car;
+        this.garage=new Car[garageSize];
     }
     public Human (String firstName , String lastName,  Double cash, Phone phone){
         this.firstName = firstName;
         this.lastName = lastName;
         this.cash = cash;
         this.phone = phone;
+        this.garage=new Car[DEFAULT_GARAGE_SIZE];
     }
     public Human (String firstName , String lastName,  Double cash, Animal pet){
         this.firstName = firstName;
         this.lastName = lastName;
         this.cash = cash;
         this.pet=pet;
+        this.garage=new Car[DEFAULT_GARAGE_SIZE];
     }
-    public Human (String firstName , String lastName,  Double cash, Car car, Phone phone, Animal pet){
+    public Human (String firstName , String lastName,  Double cash, Integer garageSize, Phone phone, Animal pet){
         this.firstName = firstName;
         this.lastName = lastName;
         this.cash = cash;
-        this.car=car;
         this.phone=phone;
         this.pet=pet;
+        this.garage=new Car[garageSize];
     }
     public Double getSalary() {
         System.out.println("Salary amount: " + this.salary+ ", checked at " + LocalDateTime.now().toString());
@@ -57,6 +63,7 @@ public class Human {
         this.salary=sum;
         System.out.println("Salary changed successful") ;
     }
+
     // getters
     public Double getCash(){
         return this.cash;
@@ -64,8 +71,8 @@ public class Human {
     public Phone getPhone() {
         return this.phone;
     }
-    public Car getCar() {
-        return this.car;
+    public Car getCar(Integer index){
+            return this.garage[index];
     }
     public Animal getPet() {
         return this.pet;
@@ -78,22 +85,57 @@ public class Human {
         this.phone=phone;
     }
     public void setCar(Car car) {
-        this.car=car;
+        for (Integer i=0;i<garage.length;i++){
+            if (this.garage[i] == null){
+                System.out.println(i);
+                this.garage[i]=car;
+                return;
+            }
+        }
+    }
+    public void setCar(Car car,Integer index) {
+        this.garage[index]=car;
     }
     public void setPet(Animal animal) {
         this.pet=animal;
     }
-    public void BuyThisCar(Car car) {
-        if (this.salary > car.value) {
-            this.car = car;
-            System.out.println("You have enough money to buy " + car.producer + " " + car.model + " by cash");
-        } else if (this.salary > car.value / 12) {
-            this.car = car;
-            System.out.println("You bought " + car.producer + " " + car.model + " in installments!");
-        } else
-            System.out.println("Sorry " + this.firstName + " you are too poor for this car");
-    }
     public String toString() {
-        return this.firstName + " " + this.lastName  + this.pet  + " " + this.salary + " " + this.phone + " " + " " + this.car;
+        return this.firstName + " " + this.lastName+" "  + this.pet  + " " + this.salary + " " + this.phone + " " + Arrays.toString(this.garage);
+    }
+    public Double carsValue(){
+        Double value = 0.0;
+        for (Car car : garage) {
+            if (car != null) {
+                value += car.value;
+            }
+        }
+        return value;
+    }
+    public void sortCars(){
+        Arrays.sort(garage);
+    }
+    public boolean hasACar(Car newCar){
+        for(Car car : garage){
+            if(newCar.equals(car)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean hasAFreePlace(){
+        for(Car car : garage){
+            if(car == null){
+                return true;
+            }
+        }
+        return false;
+    }
+    public void removeCarFromGarage(Car carForRemove){
+        for(Integer i=0;i<garage.length;i++){
+            if(carForRemove.equals(this.garage[i])){
+                this.garage[i]=null;
+                return;
+            }
+        }
     }
 }

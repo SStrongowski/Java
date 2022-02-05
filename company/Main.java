@@ -13,7 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 public class Main {
 
-    public static void main(String[] args) throws MalformedURLException {
+    public static void main(String[] args) throws MalformedURLException, Exception {
 
     Animal dog = new Pet("dog", "Dżekuś");
     dog.feed();
@@ -25,12 +25,13 @@ public class Main {
         cat.takeForWalk();
     }
     Car passeratti = new Electic("vw", "passat", 1990 ,90.0, "czarna strzala",1000.0);
-    Human me =new Human("Sebastian","Strongowski",10.0, passeratti,null,dog);
+    Human me =new Human("Sebastian","Strongowski",10.0, 4,null,dog);
+    me.setCar(passeratti);
     me.changeSalary(-100.0);
     me.changeSalary(2999.99);
     me.getSalary();
   
-    Car anotherPassat = new Lpg("vw", "passat", 1990 ,90.0, "czarna strzala",1000.0);
+    Car anotherPassat = new Lpg("vw", "passat", 1995 ,90.0, "czarna strzala",1000.0);
     System.out.println( passeratti==anotherPassat);
     System.out.println( passeratti.equals(anotherPassat));
     System.out.println(passeratti);
@@ -41,8 +42,8 @@ public class Main {
     passeratti.turnOn();
 
     Human someone =new Human("Sebastian","Strongowski",1000.2,phone);
-    System.out.println("--------------------------------------------------------");
-    passeratti.sell(me, someone, 1000.0);
+ 
+   
     System.out.println("--------------------------------------------------------");
     phone.sell(me, someone, 1000.0);
     System.out.println("--------------------------------------------------------");
@@ -65,5 +66,25 @@ public class Main {
     System.out.println("--------------------------------------------------------");
     System.out.println(passeratti);
     System.out.println(anotherPassat);
+    System.out.println("--------------------------------------------------------");
+    System.out.println(me.getCash());
+    Human idkWhoIsHe=new Human("Sebastian","Strongowski",1023123.0, 6);
+    idkWhoIsHe.setCar(passeratti);
+    idkWhoIsHe.setCar(passeratti,3);
+    try{
+        passeratti.sell(me, idkWhoIsHe, 1000.0);
+    }catch( Exception e){
+        throw e;
+    }
+    idkWhoIsHe.setCar(anotherPassat);
+    Car anotherPassat2 = new Lpg("vw", "passat", 1995 ,90.0, "czarna strzala",1000.0);
+    idkWhoIsHe.setCar(anotherPassat2);
+    System.out.println(idkWhoIsHe);
+    System.out.println(me);
+
+    Car anotherPassat3= new Lpg("vw", "passat", 1993 ,90.0, "czarna strzala",1000.0);
+    idkWhoIsHe.setCar(anotherPassat3);
+    idkWhoIsHe.sortCars();
+    System.out.println(idkWhoIsHe);
     }
 }

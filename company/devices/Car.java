@@ -1,17 +1,18 @@
 package company.devices;
 import company.Human;
-public abstract class Car  extends Device{
+import java.lang.Object;
+public abstract class Car  extends Device implements Comparable<Car> {
     public Double enginePower;
     public String color;
-    public Double value;
+    private static Double DEFAULT_CAR_VALUE=1000.0;
     public Car(String producer, String model,Integer yearOfProduction,Double enginePower, String color, Double value) {
-        super(producer, model, yearOfProduction);
+        super(producer, model, yearOfProduction,value);
         this.color = color;
         this.enginePower = enginePower;
-        this.value=value;
+    
     }    
     public Car(String producer, String model,Integer yearOfProduction,Double enginePower, String color) {
-        super(producer, model, yearOfProduction);
+        super(producer, model, yearOfProduction,DEFAULT_CAR_VALUE);
         this.color = color;
         this.enginePower = enginePower;
     }
@@ -35,37 +36,35 @@ public abstract class Car  extends Device{
         System.out.println("wrum wrum");
     }
     public String toString() {
-        return this.enginePower+" "+this.color+" "+this.value;
+        return super.toString()+" "+this.enginePower+" "+this.color+" "+this.value;
     }
-    public void sell(Human seller, Human buyer, Double price){
-        Double buyerCash = buyer.getCash();
-        Double sellerCash = seller.getCash();
-        Car sellerCar = seller.getCar();
-        System.out.println("Before transaction: Seller balance "+ sellerCash+", seller Car "+sellerCar);
-        System.out.println("Before transaction: Buyer balance "+buyerCash+", buyer Car "+buyer.getCar());
+    public void sell(Human seller, Human buyer, Double price) throws Exception{
+        Double sellerCash =seller.getCash();
+        Double buyerCash =buyer.getCash();
+        System.out.println("Before transaction: Seller balance "+ sellerCash);
+        System.out.println("Before transaction: Buyer balance "+buyerCash);
         System.out.println("Starting transaction ...");
         
-        System.out.println("checking that seller have this car:");
-        if (!this.equals(sellerCar)){
-            System.out.println("Seller doesn't have this car");
-            return;
+        if(!seller.hasACar(this)){
+            throw new Exception("Seller don't have this car");
         }
-        System.out.println("right, seller own this car");
-        System.out.println("checking that buyer have enough cash:");
-     
-        if (price > buyerCash){
-            System.out.println("Buyer have not enough cash");
-            return;
+        if(!buyer.hasAFreePlace()){
+            throw new Exception("Buyer have not enough place in garage");
         }
-        System.out.println("right, buyer have enough cash");
-        System.out.println("processing transaction ...");
-        seller.setCash(sellerCash+price);
-        seller.setCar(null);
-        buyer.setCar(sellerCar);
-        buyer.setCash(buyerCash-price);
+        if(buyerCash < price){
+            throw new Exception("Buyer have not enough cash");
+        }
+        seller.removeCarFromGarage(this);
+        buyer.setCar(this);
+        buyer.setCash(buyerCash-value);
+        seller.setCash(sellerCash+value);
         System.out.println("transaction complete");
-        System.out.println("After transaction: Seller balance "+ seller.getCash()+", seller Car "+seller.getCar());
-        System.out.println("After transaction: Buyer balance "+buyer.getCash()+", buyer Car "+buyer.getCar());
+        System.out.println("After transaction: Seller balance "+ seller.getCash());
+        System.out.println("After transaction: Buyer balance "+buyer.getCash());
+    }
+    @Override
+    public int compareTo(Car car) {
+        return this.yearOfProduction -car.yearOfProduction;
     }
     public abstract void refuel();
 }
