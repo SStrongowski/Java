@@ -3,6 +3,7 @@ package company;
 import company.creatures.Animal;
 import company.creatures.FarmAnimal;
 import company.creatures.Pet;
+import company.devices.Application;
 import company.devices.Car;
 import company.devices.Electic;
 import company.devices.Lpg;
@@ -25,7 +26,7 @@ public class Main {
         cat.takeForWalk();
     }
     Car passeratti = new Electic("vw", "passat", 1990 ,90.0, "czarna strzala",1000.0);
-    Human me =new Human("Sebastian","Strongowski",10.0, 4,null,dog);
+    Human me =new Human("Sebastian","Strongowski",1000000.0, 4,null,dog);
     //me.setCar(passeratti);
     me.changeSalary(-100.0);
     me.changeSalary(2999.99);
@@ -37,19 +38,15 @@ public class Main {
     System.out.println(passeratti);
     System.out.println(me);
     System.out.println(dog);
-    Phone phone = new Phone("xiaomi","12 extra trubo +",2020, 6.0,"android");
-    phone.turnOn();
-    passeratti.turnOn();
-
-    Human someone =new Human("Sebastian","Strongowski",1000.2,phone);
+    
  
    
     System.out.println("--------------------------------------------------------");
-    phone.sell(me, someone, 1000.0);
+    //phone.sell(me, someone, 1000.0);
     System.out.println("--------------------------------------------------------");
-    phone.sell(someone,me, 1000.0);
+    //phone.sell(someone,me, 1000.0);
     System.out.println("--------------------------------------------------------");
-    dog.sell(me,someone, 1000.0);
+    //dog.sell(me,someone, 1000.0);
     System.out.println("--------------------------------------------------------");
 
     FarmAnimal cow = new FarmAnimal("cow", "basia");
@@ -58,11 +55,11 @@ public class Main {
     cow.beEaten();
     URL url = new URL("http", "fajneapki.com", "apka.exe");
     List<String> appNameList = Arrays.asList("MiniMargo", "Messenger", "Snapchat");
-    phone.installApp("PhotoMath");
-    phone.installApp("Chrome", "85.0.1");
-    phone.installApp("FajnaApka", "9.0", "www.fajneapki.pl/");
-    phone.installApp(appNameList);
-    phone.installApp(url);
+    //phone.installApp("PhotoMath");
+    //phone.installApp("Chrome", "85.0.1");
+    //phone.installApp("FajnaApka", "9.0", "www.fajneapki.pl/");
+    //phone.installApp(appNameList);
+    //phone.installApp(url);
     System.out.println("--------------------------------------------------------");
     System.out.println(passeratti);
     System.out.println(anotherPassat);
@@ -88,5 +85,38 @@ public class Main {
     System.out.println(anotherPassat3.transactionTookPlace(me, idkWhoIsHe));
     System.out.println(anotherPassat2.transactionTookPlace(me, idkWhoIsHe));
     System.out.println(anotherPassat3.howManyTransactions());
+
+
+    Application fb = new Application("facebook", "latest", 0.0);
+    Application yt = new Application("youtube", "1314.4123.1", 0.0);
+    Application ytPremium = new Application("youtube-premium", "1314.4123.1", 15.0);
+
+    Phone phone = new Phone("xiaomi","12 extra trubo +",2020, 6.0,"android");
+    phone.turnOn();
+    passeratti.turnOn();
+
+    Human someone =new Human("Sebastian","Strongowski",14.0,phone);
+    Phone someonePhone = someone.getPhone();
+    someonePhone.installApp(someone, fb);
+    try{
+        someonePhone.installApp(someone, ytPremium);
+    }catch(Exception e){
+        System.out.println(e);
+    }
+    someone.setCash(someone.getCash()+15.0);
+    someonePhone.installApp(someone, ytPremium);
+    someonePhone.installApp(someone, yt);
+
+
+    System.out.println(someonePhone.appIsInstalled("facebook"));
+    System.out.println(someonePhone.appIsInstalled(fb));
+    System.out.println(someonePhone.appIsInstalled("tinder"));
+    System.out.println(someonePhone.appIsInstalled(new Application("tinder", "11.2", 0.0)));
+    someonePhone.allFreeApplications();
+    System.out.println(someonePhone.allApplicationsValue());
+    someone.setCash(someone.getCash()+150.0);
+    someonePhone.installApp(someone, new Application("tinder", "11.2", 100.0));
+    someonePhone.sortAppsByName();
+    someonePhone.sortAppsByPriceAsc();
     }
 }
